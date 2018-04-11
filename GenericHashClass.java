@@ -66,4 +66,51 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
         numHashDigits = DEFAULT_NUM_HASH_DIGITS;
         probeFlag = LINEAR_PROBING;
     }
+
+    /**
+     * Initialization constructor
+     * @param inProbeFlag sets linear or quadratic prbing
+     */
+    public GenericHashClass( int inProbeFlag )
+    {
+        tableArray = new Object[ DEFAULT_TABLE_SIZE ];
+        numHashDigits = DEFAULT_NUM_HASH_DIGITS;
+        probeFlag = inProbeFlag;
+    }
+
+    /**
+     * Initialization constructor
+     * @param inTableSize Sets table size
+     * @param inHashDigits Sets number of characters from data string for use in
+     *                     hash calculation
+     * @param inProbeFlag sets linear or quadratic probing
+     */
+    public GenericHashClass( int inTableSize, int inHashDigits,
+                             int inProbeFlag )
+    {
+       tableSize = inTableSize;
+       numHashDigits = inHashDigits;
+       probeFlag = inProbeFlag;
+    }
+
+    /**
+     * Copy constructor
+     * @param copied GenericHashClass object to be copied
+     */
+    public GenericHashClass( GenericHashClass< GenericData > copied )
+    {
+        int index = 0;
+
+        probeFlag = copied.probeFlag;
+        tableSize = copied.tableSize;
+        numHashDigits = copied.numHashDigits;
+
+        tableArray = new Object[ tableSize ];
+
+        for( index = 0; index < tableSize; index++ )
+        {
+           tableArray[ index ] = copied.tableArray[ index ];
+        }
+    }
+    
 }
