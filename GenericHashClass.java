@@ -53,5 +53,17 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
      * Array for hash table
      */
     private Object[] tableArray;
-    
+
+
+    /**
+     * Default constructor
+     * <p> Initializes to default table size, number of hash digits,
+     * with probe flag set to linear probing
+     */
+    public GenericHashClass()
+    {
+        tableArray = new Object[ DEFAULT_TABLE_SIZE ];
+        numHashDigits = DEFAULT_NUM_HASH_DIGITS;
+        probeFlag = LINEAR_PROBING;
+    }
 }
