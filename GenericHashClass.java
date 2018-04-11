@@ -91,6 +91,8 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
        tableSize = inTableSize;
        numHashDigits = inHashDigits;
        probeFlag = inProbeFlag;
+
+       tableArray = new Object[ inTableSize ];
     }
 
     /**
@@ -121,12 +123,16 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
      */
     public boolean addItem( GenericData newItem )
     {
-        int itemIndex;
+        int itemIndex = findItemIndex( newItem );
 
+        if( itemIndex == ITEM_NOT_FOUND )
+        {
+            return false;
+        }
 
+        tableArray[ itemIndex ] = newItem;
 
-
-        return false;
+        return true;
     }
 
     /**
@@ -151,14 +157,13 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
         {
            for( index = startIndex + 1; index < ( startIndex + tableSize ); index++ )
            {
-               if( index > tableSize )
+               if( index >= tableSize )
                {
                    index %= tableSize;
                }
 
                if( tableArray[ index ] == null )
                {
-                  tableArray[ index ] = searchItem;
                   return index;
                }
            }
