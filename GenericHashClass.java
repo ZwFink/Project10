@@ -112,5 +112,27 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
            tableArray[ index ] = copied.tableArray[ index ];
         }
     }
-    
+
+
+    /**
+     * Method converts GenericData item to has value for use in hash table
+     * <p> Note: Gets data from object via toString, then adds integer values of each
+     *     character to sum and converts to array index
+     * <p> Note: Uses number of characters from string specified by numHashDigits values
+     *
+     * @param item GenericData value to be converted to hash value
+     * @return
+     */
+    public int generateHash( GenericData item ) {
+        int digitValue = 0;
+        int index = 0;
+
+        String stringValue = item.toString();
+
+        for (index = 0; index < numHashDigits; index++)
+        {
+            digitValue += stringValue.charAt( index );
+        }
+        return digitValue % tableSize;
+    }
 }
