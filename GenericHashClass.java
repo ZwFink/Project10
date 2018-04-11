@@ -34,4 +34,24 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
     public static final int QUADRATIC_PROBING = 102;
 
 
+    /**
+     * Working number of characters from data string to use in hash calculation
+     */
+    private int numHashDigits;
+
+    /**
+     * Size of the array table
+     */
+    private int tableSize;
+
+    /**
+     * Flag for setting linear or quadratic probing
+     */
+    private int probeFlag;
+
+    /**
+     * Array for hash table
+     */
+    private Object[] tableArray;
+    
 }
