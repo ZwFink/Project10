@@ -169,6 +169,22 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
            }
 
         }
+
+        else
+        {
+            for( index = startIndex + 1; index < )
+            {
+                if( index >= tableSize )
+                {
+                    index %= tableSize;
+                }
+
+                if( tableArray[ index ] == null )
+                {
+                    return index;
+                }
+            }
+        }
         return ITEM_NOT_FOUND;
     }
 
@@ -192,5 +208,20 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
             digitValue += stringValue.charAt( index );
         }
         return digitValue % tableSize;
+    }
+
+    /**
+     * Local recursive method to calculate exponentiation with integers
+     * @param base base of exponentiation
+     * @param exponent exponent of exponentiation
+     * @return result of exponentiation calculation
+     */
+    private int toPower( int base, int exponent )
+    {
+       if( exponent == 0 )
+       {
+           return 1;
+       }
+       return toPower( base, exponent - 1 );
     }
 }
