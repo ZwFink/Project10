@@ -69,7 +69,7 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
 
     /**
      * Initialization constructor
-     * @param inProbeFlag sets linear or quadratic prbing
+     * @param inProbeFlag sets linear or quadratic probing
      */
     public GenericHashClass( int inProbeFlag )
     {
@@ -115,13 +115,66 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
 
 
     /**
+     * Adds GenericData item to hash table
+     * @param newItem GenericData item
+     * @return Boolean success of operation
+     */
+    public boolean addItem( GenericData newItem )
+    {
+        int itemIndex;
+
+
+
+
+        return false;
+    }
+
+    /**
+     * Searches for item index in hash table
+     * <p> Uses linear or quadratic probing as configured
+     * @param searchItem GenericData value to be found
+     * @return Integer index location of search item
+     */
+    @SuppressWarnings( "unchecked" )
+    private int findItemIndex( GenericData searchItem )
+    {
+       int startIndex = generateHash( searchItem );
+       int index;
+
+       if( tableArray[ startIndex ] == null )
+       {
+           return startIndex;
+       }
+
+       // if this hash is already in the array
+        if( probeFlag == LINEAR_PROBING )
+        {
+           for( index = startIndex + 1; index < ( startIndex + tableSize ); index++ )
+           {
+               if( index > tableSize )
+               {
+                   index %= tableSize;
+               }
+
+               if( tableArray[ index ] == null )
+               {
+                  tableArray[ index ] = searchItem;
+                  return index;
+               }
+           }
+
+        }
+        return ITEM_NOT_FOUND;
+    }
+
+    /**
      * Method converts GenericData item to has value for use in hash table
      * <p> Note: Gets data from object via toString, then adds integer values of each
      *     character to sum and converts to array index
      * <p> Note: Uses number of characters from string specified by numHashDigits values
      *
      * @param item GenericData value to be converted to hash value
-     * @return
+     * @return integer hash value
      */
     public int generateHash( GenericData item ) {
         int digitValue = 0;
