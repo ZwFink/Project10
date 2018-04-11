@@ -146,6 +146,7 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
     {
        int startIndex = generateHash( searchItem );
        int index;
+       int quadraticOffset;
 
        if( tableArray[ startIndex ] == null )
        {
@@ -172,7 +173,9 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
 
         else
         {
-            for( index = startIndex + 1; index < )
+            // TODO ensure that the index bounds are correct
+            quadraticOffset = 1;
+            for( index = startIndex + 1; index < (startIndex + tableSize ); index += toPower( 2, quadraticOffset ) )
             {
                 if( index >= tableSize )
                 {
@@ -183,6 +186,7 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
                 {
                     return index;
                 }
+                quadraticOffset++;
             }
         }
         return ITEM_NOT_FOUND;
@@ -218,7 +222,7 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
      */
     private int toPower( int base, int exponent )
     {
-       if( exponent == 0 )
+       if( exponent == 1 )
        {
            return 1;
        }
