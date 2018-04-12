@@ -99,6 +99,7 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
      * Copy constructor
      * @param copied GenericHashClass object to be copied
      */
+    @SuppressWarnings( "unchecked" )
     public GenericHashClass( GenericHashClass< GenericData > copied )
     {
         int index = 0;
@@ -158,10 +159,7 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
         {
            for( index = startIndex + 1; index < ( startIndex + tableSize ); index++ )
            {
-               if( index >= tableSize )
-               {
-                   index %= tableSize;
-               }
+               index %= tableSize;
 
                if( tableArray[ index ] == null )
                {
@@ -173,21 +171,16 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
 
         else
         {
-            // TODO ensure that the index bounds are correct
             quadraticOffset = 1;
-            for( index = startIndex + 1; index < (startIndex + tableSize ); index += toPower( 2, quadraticOffset ) )
+            int searchIndex = startIndex + quadraticOffset;
+            while( tableArray[ searchIndex ] != null )
             {
-                if( index >= tableSize )
-                {
-                    index %= tableSize;
-                }
-
-                if( tableArray[ index ] == null )
-                {
-                    return index;
-                }
+                searchIndex = toPower( 2, quadraticOffset ) + startIndex;
+                searchIndex %= tableSize;
                 quadraticOffset++;
             }
+
+            return searchIndex;
         }
         return ITEM_NOT_FOUND;
     }
@@ -222,10 +215,10 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
      */
     private int toPower( int base, int exponent )
     {
-       if( exponent == 1 )
+       if( exponent == 0 )
        {
            return 1;
        }
-       return toPower( base, exponent - 1 );
+       return base * toPower( base, exponent - 1 );
     }
 }
