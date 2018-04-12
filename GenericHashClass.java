@@ -148,6 +148,7 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
        int startIndex = generateHash( searchItem );
        int index;
        int quadraticOffset;
+       int searchIndex;
 
        if( tableArray[ startIndex ] == null )
        {
@@ -172,16 +173,18 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
         else
         {
             quadraticOffset = 1;
-            int searchIndex = startIndex + quadraticOffset;
+            searchIndex = startIndex + 1;
+
             while( tableArray[ searchIndex ] != null )
             {
-                searchIndex = toPower( 2, quadraticOffset ) + startIndex;
-                searchIndex %= tableSize;
-                quadraticOffset++;
+               searchIndex = startIndex;
+               searchIndex += toPower( quadraticOffset, 2 );
+               quadraticOffset++;
             }
 
             return searchIndex;
         }
+
         return ITEM_NOT_FOUND;
     }
 
@@ -200,10 +203,12 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
 
         String stringValue = item.toString();
 
-        for (index = 0; index < numHashDigits; index++)
+        while( index < numHashDigits && numHashDigits < stringValue.length() )
         {
-            digitValue += stringValue.charAt( index );
+            digitValue += (int) stringValue.charAt( index );
+            index++;
         }
+
         return digitValue % tableSize;
     }
 
