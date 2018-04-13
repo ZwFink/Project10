@@ -226,4 +226,16 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
        }
        return base * toPower( base, exponent - 1 );
     }
+
+    /**
+     * Clears hash table by setting all bins to null
+     */
+    public void clearHashTable()
+    {
+        int index;
+        for( index = 0; index < tableSize; index++ )
+        {
+            tableArray[ index ] = null;
+        }
+    }
 }
