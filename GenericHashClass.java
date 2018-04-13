@@ -171,6 +171,21 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
     }
 
     /**
+     * Returns item found
+     * @param searchItem GenericData item to be found, uses findItemIndex
+     * @return GenericData item found, or null if item is not found
+     */
+    public GenericData findItem( GenericData searchItem )
+    {
+        if( findItemIndex( searchItem ) != ITEM_NOT_FOUND )
+        {
+            return searchItem;
+        }
+
+        return null;
+    }
+
+    /**
      * Searches for item index in hash table
      * <p> Uses linear or quadratic probing as configured
      * @param searchItem GenericData value to be found
