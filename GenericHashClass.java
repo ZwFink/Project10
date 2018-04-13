@@ -170,6 +170,23 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
        return true;
     }
 
+    @SuppressWarnings( "unchecked" )
+    public GenericData removeItem( GenericData toBeRemoved )
+    {
+        int itemIndex = findItemIndex( toBeRemoved );
+        GenericData itemToReturn;
+
+        if( itemIndex != ITEM_NOT_FOUND )
+        {
+            return null;
+        }
+
+        itemToReturn = (GenericData) tableArray[ itemIndex ];
+        tableArray[ itemIndex ] = null;
+
+        return itemToReturn;
+    }
+
     /**
      * Returns item found
      * @param searchItem GenericData item to be found, uses findItemIndex
