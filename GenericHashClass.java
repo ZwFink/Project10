@@ -158,6 +158,7 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
             {
                searchIndex = startIndex;
                searchIndex += toPower( quadraticOffset, 2 );
+               searchIndex %= tableSize;
                quadraticOffset++;
             }
 
@@ -181,11 +182,11 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
        int startIndex = generateHash( searchItem );
        int index;
        int quadraticOffset;
-       int searchIndex;
+       int searchIndex = ITEM_NOT_FOUND;
 
        if( tableArray[ startIndex ] == null )
        {
-           return startIndex;
+           return ITEM_NOT_FOUND;
        }
 
        // if this hash is already in the array
@@ -195,9 +196,9 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
            {
                index %= tableSize;
 
-               if( tableArray[ index ] == null )
+               if( searchItem.compareTo( (GenericData) tableArray[ index ] ) == 0 )
                {
-                  return index;
+                   searchIndex = index;
                }
            }
 
@@ -215,10 +216,9 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
                quadraticOffset++;
             }
 
-            return searchIndex;
         }
 
-        return ITEM_NOT_FOUND;
+        return searchIndex;
     }
 
     /**
