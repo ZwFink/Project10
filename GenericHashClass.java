@@ -124,16 +124,49 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
      */
     public boolean addItem( GenericData newItem )
     {
-        int itemIndex = findItemIndex( newItem );
+       int startIndex = generateHash( newItem );
+       int index;
+       int quadraticOffset;
+       int searchIndex = 0;
 
-        if( itemIndex == ITEM_NOT_FOUND )
+       if( tableArray[ startIndex ] == null )
+       {
+           tableArray[ startIndex ] = newItem;
+       }
+
+       // if this hash is already in the array
+        if( probeFlag == LINEAR_PROBING )
         {
-            return false;
+           for( index = startIndex + 1; index < ( startIndex + tableSize ); index++ )
+           {
+               index %= tableSize;
+
+               if( tableArray[ index ] == null )
+               {
+                   searchIndex = index;
+               }
+           }
+
         }
 
-        tableArray[ itemIndex ] = newItem;
+        else
+        {
+            quadraticOffset = 1;
+            searchIndex = startIndex + 1;
 
-        return true;
+            while( tableArray[ searchIndex ] != null )
+            {
+               searchIndex = startIndex;
+               searchIndex += toPower( quadraticOffset, 2 );
+               quadraticOffset++;
+            }
+
+            tableArray[ searchIndex ] = newItem;
+        }
+
+        tableArray[ searchIndex ] = newItem;
+
+       return true;
     }
 
     /**
