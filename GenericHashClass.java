@@ -215,6 +215,7 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
        int index;
        int quadraticOffset;
        int searchIndex;
+       int counter;
 
        if( tableArray[ startIndex ] == null )
        {
@@ -241,12 +242,22 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
             quadraticOffset = 1;
             searchIndex = startIndex + 1;
 
+            // if counter becomes more than tableSize, the item was not in the array
+            counter = 0;
+
             while(  searchItem.compareTo( (GenericData) tableArray[ searchIndex ] ) != 0 )
             {
                searchIndex = startIndex;
                searchIndex += toPower( quadraticOffset, 2 );
                searchIndex %= tableSize;
                quadraticOffset++;
+               counter++;
+
+               if( counter >= tableSize )
+               {
+                   return ITEM_NOT_FOUND;
+               }
+
             }
 
             return searchIndex;
