@@ -312,7 +312,60 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
      */
     public String showHashTableStatus()
     {
+        int maxContig = 0;
+        int minContig = -1;
+        int currentContig = 0;
+        int index;
+        int emptyBins = 0;
 
+        // we only want to change the minContig if
+        // it hasn't already been set
+        boolean minContigSet = false;
+
+        String tableStatus = "";
+
+        for( index = 0; index < tableSize; index++ )
+        {
+            if( tableArray[ index ] == null )
+            {
+               tableStatus += 'N';
+               emptyBins++;
+
+               if( minContigSet )
+               {
+                   minContig = currentContig;
+               }
+
+               if( currentContig > maxContig )
+               {
+                   maxContig = currentContig;
+               }
+               else if( currentContig < minContig && currentContig > 0 )
+               {
+                   minContig = currentContig;
+               }
+
+               currentContig = 0;
+               minContigSet = false;
+            }
+            else
+            {
+                if( minContig == -1 )
+                {
+                    minContigSet = true;
+                }
+
+                tableStatus += 'D';
+                currentContig++;
+
+            }
+        }
+
+        System.out.println( "Hash Table status: " + tableStatus );
+        System.out.println( "Minimum contiguous bins: " + minContig );
+        System.out.println( "Maximum contiguous bins: " + maxContig );
+        System.out.println( "Number of empty bins: " + emptyBins );
+        return tableStatus;
     }
 
     /**
