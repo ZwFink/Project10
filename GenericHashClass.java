@@ -306,6 +306,16 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
     }
 
     /**
+     * Traverse through all array bins, finds min and max number of contiguous elements, and number of empty nodes,
+     * also shows table loading
+     * @return String result of hash table analysis
+     */
+    public String showHashTableStatus()
+    {
+
+    }
+
+    /**
      * Clears hash table by setting all bins to null
      */
     public void clearHashTable()
