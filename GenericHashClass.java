@@ -176,7 +176,7 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
         int itemIndex = findItemIndex( toBeRemoved );
         GenericData itemToReturn;
 
-        if( itemIndex != ITEM_NOT_FOUND )
+        if( itemIndex == ITEM_NOT_FOUND )
         {
             return null;
         }
@@ -218,7 +218,7 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
 
        if( tableArray[ startIndex ] == null )
        {
-           return startIndex;
+           return ITEM_NOT_FOUND;
        }
 
        // if this hash is already in the array
@@ -228,7 +228,7 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
            {
                index %= tableSize;
 
-               if( tableArray[ index ] == null )
+               if( searchItem.compareTo( (GenericData) tableArray[ index ] ) == 0 )
                {
                   return index;
                }
@@ -241,10 +241,11 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
             quadraticOffset = 1;
             searchIndex = startIndex + 1;
 
-            while( tableArray[ searchIndex ] != null )
+            while(  searchItem.compareTo( (GenericData) tableArray[ searchIndex ] ) != 0 )
             {
                searchIndex = startIndex;
                searchIndex += toPower( quadraticOffset, 2 );
+               searchIndex %= tableSize;
                quadraticOffset++;
             }
 
