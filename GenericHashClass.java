@@ -322,7 +322,7 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
         // it hasn't already been set
         boolean minContigSet = false;
 
-        String tableStatus = "";
+        String tableStatus = "Hash table status: ";
 
         for( index = 0; index < tableSize; index++ )
         {
@@ -361,10 +361,9 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
             }
         }
 
-        System.out.println( "Hash Table status: " + tableStatus );
-        System.out.println( "Minimum contiguous bins: " + minContig );
-        System.out.println( "Maximum contiguous bins: " + maxContig );
-        System.out.println( "Number of empty bins: " + emptyBins );
+        tableStatus += "\nMinimum contiguous bins: " + minContig;
+        tableStatus += "\nMaximum contiguous bins: " + maxContig;
+        tableStatus += "\nNumber of empty bins: " + emptyBins;
         return tableStatus;
     }
 
