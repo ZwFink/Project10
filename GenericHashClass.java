@@ -124,7 +124,7 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
      */
     public boolean addItem( GenericData newItem )
     {
-       int startIndex = generateHash( newItem );
+       int startIndex = generateHash( newItem ) % tableSize;
        int index;
        int quadraticOffset;
        int searchIndex = 0;
@@ -218,11 +218,10 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
     @SuppressWarnings( "unchecked" )
     private int findItemIndex( GenericData searchItem )
     {
-       int startIndex = generateHash( searchItem );
+       int startIndex = generateHash( searchItem ) % tableSize;
        int index;
        int quadraticOffset;
        int searchIndex;
-       int counter;
 
        if( tableArray[ startIndex ] == null )
        {
@@ -249,15 +248,12 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
             quadraticOffset = 1;
             searchIndex = startIndex + 1;
 
-            counter = 0;
-
             while(  searchItem.compareTo( (GenericData) tableArray[ searchIndex ] ) != 0 )
             {
                searchIndex = startIndex;
                searchIndex += toPower( quadraticOffset, 2 );
                searchIndex %= tableSize;
                quadraticOffset++;
-               counter++;
 
                // if quadratic offset is bigger than the size of the array
                 // the item is not present
@@ -295,7 +291,7 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
             index++;
         }
 
-        return digitValue % tableSize;
+        return digitValue;
     }
 
     /**
