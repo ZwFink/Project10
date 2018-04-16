@@ -172,6 +172,11 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
        return false;
     }
 
+    /**
+     * Removes item from HashTable
+     * @param toBeRemoved Item to be removed
+     * @return GenericData item removed
+     */
     @SuppressWarnings( "unchecked" )
     public GenericData removeItem( GenericData toBeRemoved )
     {
@@ -213,7 +218,7 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
     @SuppressWarnings( "unchecked" )
     private int findItemIndex( GenericData searchItem )
     {
-     int startIndex = generateHash( searchItem );
+       int startIndex = generateHash( searchItem );
        int index;
        int quadraticOffset;
        int searchIndex;
@@ -244,7 +249,6 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
             quadraticOffset = 1;
             searchIndex = startIndex + 1;
 
-            // if counter becomes more than tableSize, the item was not in the array
             counter = 0;
 
             while(  searchItem.compareTo( (GenericData) tableArray[ searchIndex ] ) != 0 )
@@ -255,7 +259,9 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
                quadraticOffset++;
                counter++;
 
-               if( counter >= tableSize )
+               // if quadratic offset is bigger than the size of the array
+                // the item is not present
+               if( quadraticOffset > tableSize )
                {
                    return ITEM_NOT_FOUND;
                }
