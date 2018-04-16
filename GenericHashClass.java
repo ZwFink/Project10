@@ -144,6 +144,8 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
                if( tableArray[ index ] == null )
                {
                    searchIndex = index;
+                   tableArray[ searchIndex ] = newItem;
+                   return true;
                }
            }
 
@@ -163,11 +165,11 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
             }
 
             tableArray[ searchIndex ] = newItem;
+            return true;
         }
 
-        tableArray[ searchIndex ] = newItem;
 
-       return true;
+       return false;
     }
 
     @SuppressWarnings( "unchecked" )
