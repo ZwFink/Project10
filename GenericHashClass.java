@@ -365,9 +365,11 @@ public class GenericHashClass< GenericData extends  Comparable< GenericData > >
             }
         }
 
-        tableStatus += "\nMinimum contiguous bins: " + minContig;
-        tableStatus += "\nMaximum contiguous bins: " + maxContig;
-        tableStatus += "\nNumber of empty bins: " + emptyBins;
+        System.out.println( "Hash table status: " + tableStatus );
+        System.out.println( "Minimum contiguous bins: " + minContig );
+        System.out.println( "Maximum contiguous bins: " + maxContig );
+        System.out.println( "Number of empty bins: " + emptyBins );
+
         return tableStatus;
     }
 
